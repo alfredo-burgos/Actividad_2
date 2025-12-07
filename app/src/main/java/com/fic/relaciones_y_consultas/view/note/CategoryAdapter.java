@@ -19,6 +19,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private final List<CategoryWithNotes> categoryList = new ArrayList<>();
 
+    static class CategoryViewHolder extends RecyclerView.ViewHolder {
+
+        TextView tvCategoryName;
+        RecyclerView rvNotes;
+
+        CategoryViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
+            rvNotes = itemView.findViewById(R.id.rvNotes);
+        }
+    }
+
     public void submitList(List<CategoryWithNotes> categories) {
         categoryList.clear();
         if (categories != null) {
@@ -39,9 +51,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryWithNotes item = categoryList.get(position);
 
-        holder.tvCategoryName.setText(item.category.categoryName);
+        holder.tvCategoryName.setText(item.category.category_name);
 
-        // Configurar RecyclerView de notas dentro de la categoría
         NoteAdapter noteAdapter = new NoteAdapter();
         holder.rvNotes.setLayoutManager(new LinearLayoutManager(
                 holder.itemView.getContext()
@@ -53,18 +64,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public int getItemCount() {
         return categoryList.size();
-    }
-
-    static class CategoryViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tvCategoryName;
-        RecyclerView rvNotes;
-
-        CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
-            rvNotes = itemView.findViewById(R.id.rvNotes);
-        }
     }
 }
 

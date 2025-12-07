@@ -8,7 +8,10 @@ import com.fic.relaciones_y_consultas.model.CategoryWithNotes;
 import com.fic.relaciones_y_consultas.model.Note;
 import com.fic.relaciones_y_consultas.model.NoteDao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NoteController {
 
@@ -19,33 +22,33 @@ public class NoteController {
         noteDao = database.noteDao();
     }
 
-    // MODEL operations (sin tocar UI, solo lógica)
-
-    public long insertCategory(String categoryName) {
+    public void insertCategory(String categoryName) {
         Category category = new Category(categoryName);
-        return noteDao.insertCategory(category);
-    }
-
-    public long insertNote(String noteTitle, String noteContent, long categoryId) {
-        long createdAt = System.currentTimeMillis();
-        Note note = new Note(noteTitle, noteContent, createdAt, categoryId);
-        return noteDao.insertNote(note);
-    }
-
-    public List<CategoryWithNotes> getAllCategoriesWithNotes() {
-        return noteDao.getAllCategoriesWithNotes();
-    }
-
-    public List<Note> getNotesByCategory(long categoryId) {
-        return noteDao.getNotesByCategory(categoryId);
-    }
-
-    public List<Note> searchNotes(String query) {
-        return noteDao.searchNotes(query);
+        noteDao.insertCategory(category);
     }
 
     public List<Category> getAllCategories() {
         return noteDao.getAllCategories();
     }
 
+    public void insertNote(String title, String content, long categoryId) {
+        Note note = new Note();
+        note.note_title = title;
+        note.note_content = content;
+        note.category_id = categoryId;
+
+        SimpleDateFormat sdf =
+                new SimpleDateFormat(AppDatabase.DATE_FORMAT, Locale.getDefault());
+        note.created_at = sdf.format(new Date());
+
+        noteDao.insertNote(note);
+    }
+
+    public List<CategoryWithNotes> getAllCategoriesWithNotes() {
+        return noteDao.getAllCategoriesWithNotes();
+    }
+
+    public List<Note> searchNotes(String query) {
+        return noteDao.searchNotes(query);
+    }
 }

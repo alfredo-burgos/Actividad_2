@@ -47,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
         noteAdapter     = new NoteAdapter();
 
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(categoryAdapter);   // por defecto, categorías
+        rvList.setAdapter(categoryAdapter);
 
-        // Cargar categorías al inicio
         loadCategories();
 
-        // Listeners de los botones
         btnAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
             startActivity(intent);
@@ -63,13 +61,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Búsqueda en tiempo real
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                applyCurrentFilter();   // << aquí
+                applyCurrentFilter();
             }
         });
 
@@ -85,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         String query = etSearch.getText().toString().trim();
 
         if (query.isEmpty()) {
-            loadCategories();          // muestra categorías + notas
+            loadCategories();
         } else {
-            loadSearchResults(query);  // muestra resultados de búsqueda
+            loadSearchResults(query);
         }
     }
 

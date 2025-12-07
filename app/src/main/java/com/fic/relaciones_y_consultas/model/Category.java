@@ -10,13 +10,13 @@ public class Category {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "category_id")
-    public long categoryId;
+    public long category_id;
 
-    @NonNull
     @ColumnInfo(name = "category_name")
-    public String categoryName;
+    public String category_name;
 
-    public Category(@NonNull String categoryName) {
-        this.categoryName = categoryName;
+
+    public Category(@NonNull String category_name) {
+        this.category_name = category_name;
     }
 }

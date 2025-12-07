@@ -24,7 +24,6 @@ public class AddNoteActivity extends AppCompatActivity {
     private EditText etContent;
     private Button btnSaveNote;
 
-    // lista de categorías cargadas de la BD
     private final List<Category> categoryList = new ArrayList<>();
     private ArrayAdapter<String> spinnerAdapter;
 
@@ -52,7 +51,6 @@ public class AddNoteActivity extends AppCompatActivity {
         );
         spCategory.setAdapter(spinnerAdapter);
 
-        // cargar categorías desde Room
         new Thread(() -> {
             List<Category> result = noteController.getAllCategories();
             categoryList.clear();
@@ -60,7 +58,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
             List<String> names = new ArrayList<>();
             for (Category c : categoryList) {
-                names.add(c.categoryName);
+                names.add(c.category_name);
             }
 
             runOnUiThread(() -> {
@@ -74,7 +72,6 @@ public class AddNoteActivity extends AppCompatActivity {
     private void setupButton() {
         btnSaveNote.setOnClickListener(v -> {
 
-            // AQUÍ SE DECLARAN LAS VARIABLES QUE TE SALÍAN ROJAS
             String title   = etTitle.getText().toString().trim();
             String content = etContent.getText().toString().trim();
 
@@ -91,15 +88,8 @@ public class AddNoteActivity extends AppCompatActivity {
             int position = spCategory.getSelectedItemPosition();
             Category selected = categoryList.get(position);
 
-            // HILO PARA INSERTAR EN BD + DEBUG
             new Thread(() -> {
-                long id = noteController.insertNote(
-                        title,
-                        content,
-                        selected.categoryId
-                );
-
-                System.out.println("Note inserted with id = " + id);
+                noteController.insertNote(title, content, selected.category_id);
 
                 runOnUiThread(() -> {
                     Toast.makeText(this, "Nota guardada", Toast.LENGTH_SHORT).show();

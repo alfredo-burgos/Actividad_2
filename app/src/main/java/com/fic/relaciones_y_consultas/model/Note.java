@@ -22,24 +22,17 @@ public class Note {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "note_id")
-    public long noteId;
+    public long note_id;
 
     @ColumnInfo(name = "note_title")
-    public String noteTitle;
+    public String note_title;
 
     @ColumnInfo(name = "note_content")
-    public String noteContent;
+    public String note_content;
 
     @ColumnInfo(name = "created_at")
-    public long createdAt;
+    public String created_at;
 
     @ColumnInfo(name = "category_id")
-    public long categoryId;
-
-    public Note(String noteTitle, String noteContent, long createdAt, long categoryId) {
-        this.noteTitle = noteTitle;
-        this.noteContent = noteContent;
-        this.createdAt = createdAt;
-        this.categoryId = categoryId;
-    }
+    public long category_id;
 }

@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase;
 )
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static final String DATE_FORMAT = "dd/MM/yyyy";  // constante en SNAKE
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     private static volatile AppDatabase instance;
 

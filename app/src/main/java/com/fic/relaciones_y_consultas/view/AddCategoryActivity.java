@@ -32,21 +32,20 @@ public class AddCategoryActivity extends AppCompatActivity {
         btnSaveCategory.setOnClickListener(v -> {
             String name = etCategoryName.getText().toString().trim();
             if (name.isEmpty()) {
-                Toast.makeText(this, "Category name required", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Se requiere de poner una categoria", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             new Thread(() -> {
                 noteController.insertCategory(name);
 
-                // solo para debug:
                 List<Category> all = noteController.getAllCategories();
                 for (Category c : all) {
-                    System.out.println("Category in DB: " + c.categoryId + " - " + c.categoryName);
+                    System.out.println("Categoria en la BD: " + c.category_id + " - " + c.category_name);
                 }
 
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "Category saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Tu categoria fue agregada", Toast.LENGTH_SHORT).show();
                     finish();
                 });
             }).start();
